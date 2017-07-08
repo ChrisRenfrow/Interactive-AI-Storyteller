@@ -66,26 +66,34 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 
 function status_f (app) {
     if (hp == 100)
-	   app.tell('Our status is well, okay.');
+	   app.ask('Our status is well, okay.');
 }
 
 function attack_f (app) {
 	hp = hp - 10;
-	app.tell('Torpedo barrel misaligned! Damage taken!');
+	app.ask('<speak>Atacking...<break time="1s"/>Torpedo barrel misaligned! '+
+                'Damage taken!</speak>');
+}
+
+function repair_f (app) {
+	hp = hp + 10;
+	app.ask('<speak>Repairing...<break time="1s"/>What\'s next Captain?</speak>');
 }
 
 function scan_f (app) {
-    var bsay = "Looks like we have... ";
+    var bsay = '<speak>Looks like we have something... ';
     for (var e in curr_zone.entities) {
-        bsay += e.alias + ", ";
+        bsay += e.alias + ', ';
     }
-    app.tell(bsay);
+    bsay += ' What\'s next Captain?</speak>'
+    app.ask(bsay);
 }
 
   let actionMap = new Map();
   actionMap.set('status', status_f);
   actionMap.set('attack', attack_f);
-  actionMap.set('scan'), scan_f);
+  actionMap.set('repair', repair_f);
+  actionMap.set('scan', scan_f);
 
   app.handleRequest(actionMap);
 });
