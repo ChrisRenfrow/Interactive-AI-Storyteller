@@ -5,37 +5,49 @@ const App = require('actions-on-google').ApiAiApp;
 const functions = require('firebase-functions');
 
 var hp = 100;
-var entities = {[
+var world = {
+  "locations": [
     {
-        alias:  "whallioop",
-        far_desc: "a large lifeform",
-        detail: "A large, oblong creature with several sets of fins and a large mouth, it doesn't appear to have teeth, thank goodness."
-    }, {
-        alias: "krimples",
-        far_detail: "a swarm of small lifeforms",
-        detail: "These small crustacean type creatures move swiftly and aggressively amongst themselves, but I'm sure they're harmless. I hope they are..."
+      "alias": "starting zone",
+      "directions": {
+        "north": "rigid structure",
+        "south": "0",
+        "east": "0",
+        "west": "0"
+      },
+      "entities": [
+        {
+          "alias": "large organism",
+          "desc": "It's a large organism with a several sets of fins"
+        },
+        {
+          "alias": "swarm of small organisms",
+          "desc": "A swarm of seemingly harmless crustacean-type creatures"
+        }
+      ]
+    },
+    {
+      "alias": "rigid structure",
+      "directions": {
+        "north": "0",
+        "south": "starting zone",
+        "east": "0",
+        "west": "0"
+      },
+      "entities": [],
+      "items": [
+        {
+          "alias": "box"
+        },
+        {
+          "alias": "big box"
+        }
+      ]
     }
-]};
+  ]
+};
 
-var locations = {[
-    {
-        alias: "starting zone",
-        directions: [
-            north: "rigid structure",
-            south: "0",
-            east: "0",
-            west: "0"
-        ]
-    }, {
-        alias: "rigid structure",
-        directions: [
-            north: "0",
-            south: "starting zone",
-            east: "0",
-            west: "0"
-        ]
-    }
-]};
+var curr_zone = world.locations[0];
 
 exports.underwaterAdventure = functions.https.onRequest((request, response) => {
   const app = new App({request, response});
@@ -64,8 +76,8 @@ function attack_f (app) {
 
 function scan_f (app) {
     var bsay = "Looks like we have... ";
-    for (var e in entities) {
-        bsay += e.far_detail + ", ";
+    for (var e in curr_zone.entities) {
+        bsay += e.alias + ", ";
     }
     app.tell(bsay);
 }
