@@ -139,22 +139,24 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 			bsay += current.bsay;
 		} else if (target != null) {
 			bsay += current.bsay;
-			if (current.enemies != null)
+			if (current.enemies != null) {
 				bsay += ' The are enemies nearby, ';
-			for (var e in current.enemies) {
-				bsay += e.alias + ', ';
+			    for (var e in current.enemies) {
+    				bsay += e.alias + ', ';
+				}
 			}
-		}
-		if (current.objects != null) {
-			bsay += 'There\'s also an object here, ';
-			for (var o in current.objects) {
-				bsay += o.alias + ', ';
+			if (current.objects != null) {
+    			bsay += 'There\'s also an object here, ';
+    			for (var o in current.objects) {
+				    bsay += o.alias + ', ';
+				}
 			}
 		} else if (target.bsay) {
 			app.ask(target.bsay);
 		} else {
 			app.ask('Nope, that isn\'t here.');
 		}
+		app.ask(bsay);
 	}
 
 	function take_f (app) {
