@@ -101,6 +101,10 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 	console.log('Request headers: ' + JSON.stringify(request.headers));
 	console.log('Request body: ' + JSON.stringify(request.body));
 
+	function welcome_f (app) {
+		app.ask(map.welcome);
+	}
+
 	function attack_f (app) {
 		let target = current.enemies[app.getArgument('any')];
 		if (current.enemies != null && current.enemies[target]) {
@@ -163,6 +167,7 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 	// }
 
 	let actionMap = new Map();
+	actionMap.set('welcome', welcome_f);
 	actionMap.set('attack', attack_f);
 	actionMap.set('navigate', navigate_f);
 	// actionMap.set('heal', heal_f);
