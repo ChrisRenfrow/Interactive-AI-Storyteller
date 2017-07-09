@@ -111,7 +111,7 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 	}
 
 	function navigate_f (app) {
-		let direction = current.exits[app.getArgument('any')];
+		let direction = current.exits[app.getArgument('Directions')];
 		if (direction != '-1' && direction) {
 			current = map.rooms[direction];
 			app.ask('Alright, guiding you to the ' + current.alias);
