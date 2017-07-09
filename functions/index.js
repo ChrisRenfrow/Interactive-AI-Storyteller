@@ -147,17 +147,6 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
   console.log('Request headers: ' + JSON.stringify(request.headers));
   console.log('Request body: ' + JSON.stringify(request.body));
 
-// Make a silly name
-//  function makeName (app) {
-//    let number = app.getArgument(NUMBER_ARGUMENT);
-//    let color = app.getArgument(COLOR_ARGUMENT);
-//    app.tell('Alright, your silly name is ' +
-//      color + ' ' + number +
-//      '! I hope you like it. See you next time.');
-//  }
-
-// var map = JSON.parse(fs.readFileSync('../asets/maps/super_maze.json', 'utf8'));
-
 function attack_f (app) {
     let target = current.enemies[app.getArgument('any')]
     if (current.enemies != null && target) {
