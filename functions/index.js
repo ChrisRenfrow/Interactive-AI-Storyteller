@@ -68,6 +68,14 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 function status_f (app) {
     if (hp == 100)
 	   app.ask('Our status is well, okay.');
+    else if (hp >= 75)
+        app.ask('We\'ve taken some hits. Repairs recommended.');
+    else if (hp >= 50)
+        app.ask('The sub is moderately damaged. Repair ASAP.');
+    else if (hp >= 25)
+        app.ask('Critical damage! Repair immediately!');
+    else
+        app.ask('How are we even alive...');
 }
 
 function attack_f (app) {
