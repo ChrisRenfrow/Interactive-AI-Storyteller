@@ -25,8 +25,9 @@ const map = {
 				'left': 'mountains'
 			},
 			'objects': {
-          	'strange metallic shard': {
-            	'bsay': 'It\'s humming with a strange energy, I\'m not sure what to make of it but it seems like it might be important. Why not pick it up?',
+				'shard': {
+					'alias': 'pulsing metallic shard',
+					'bsay': 'It\'s humming with a strange energy, I\'m not sure what to make of it but it seems like it might be important. Why not pick it up?',
 					'actions': ['take', 'examine']
 				}
 			},
@@ -44,7 +45,8 @@ const map = {
 				'left': 'room3'
 			},
 			'objects': {
-				'burnt grass': {
+				'burnt patches': {
+					'alias': 'burnt patches in the grass',
 					'bsay': 'The grass is burned in random spots leading toward the stone structure, some spots are still smoldering...',
 					'actions': ['examine']
 				}
@@ -64,9 +66,9 @@ const map = {
 			},
 			'objects': {
 				'crystal': {
-            	'alias': 'crystal in the rock',
-            	'bsay': 'There\'s a crystal embedded in the rock... Maybe I could break it out...',
-            	'actions': ['take', 'examine']
+            	    'alias': 'crystal in the rock',
+            	    'bsay': 'There\'s a crystal embedded in the rock... Maybe I could break it out...',
+            	    'actions': ['take', 'examine']
 				}
 			},
 			'enemies': null
