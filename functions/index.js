@@ -4,7 +4,6 @@ process.env.DEBUG = 'actions-on-google:*';
 const App = require('actions-on-google').ApiAiApp;
 const functions = require('firebase-functions');
 
-var hp = 100;
 var world = {
   "locations": [
     {
@@ -48,6 +47,8 @@ var world = {
 };
 
 var curr_zone = world.locations[0];
+var hp = 100;
+var repair_kit = 2;
 
 exports.underwaterAdventure = functions.https.onRequest((request, response) => {
   const app = new App({request, response});
@@ -75,13 +76,28 @@ function attack_f (app) {
                 'Damage taken!</speak>');
 }
 
+function navigate_f (app) {
+    let directions = {north:1,south:0,east:0,west:1};
+    let target = app.getArgument('any');
+    if (directions[target]) {
+        app.ask('Alright, we\'re going ' + target);
+    } else {
+        app.ask('We can\'t go that way!');
+    }
+}
+
 function repair_f (app) {
-	hp = hp + 10;
-	app.ask('<speak>Repairing...<break time="1s"/>What\'s next Captain?</speak>');
+    if (repair_kit != 0) {
+        hp = hp + 10;
+        repair_kit = repair_kit - 1;
+    	app.ask('<speak>Repairing...<break time="1s"/>What\'s next Captain?</speak>');
+    } else {
+        app.ask('<speak>It seems we have no repair kits...<break time="1s"/>What\'s next Captain?</speak>');
+    }
 }
 
 function scan_f (app) {
-    var bsay = '<speak>Looks like we have something... ';
+    let bsay = '<speak>Looks like we have something... ';
     for (var e in curr_zone.entities) {
         bsay += e.alias + ', ';
     }
@@ -89,11 +105,46 @@ function scan_f (app) {
     app.ask(bsay);
 }
 
+function self_destruct_f (app) {
+    app.tell("Well, goodbye cruel world...");
+}
+
+function speak_f (app) {
+    let target = app.getArgument('any');
+    if (tarket == 'fish') { // Test value is test
+        app.ask('Comunicating with ' + target + '...');
+    } else {
+        app.ask('No such ' + target + ' in range...');
+    }
+}
+
+function take_f (app) {
+    let target = app.getArgument('any');
+    if (target == 'bagel') {
+        app.ask('Grabbing ' + target + '...');
+    } else {
+        app.ask('No such ' + target + ' here...');
+    }
+}
+
+function interact_f (app) {
+    let target = app.getArgument('any');
+    if (target == 'boat') {
+        app.ask('Touching ' + target + '...');
+    } else {
+        app.ask('No such ' + target + '...');
+    }
+}
+
   let actionMap = new Map();
   actionMap.set('status', status_f);
   actionMap.set('attack', attack_f);
   actionMap.set('repair', repair_f);
   actionMap.set('scan', scan_f);
+  actionMap.set('speak', speak_f);
+  actionMap.set('take', take_f);
+  actionMap.set('interact', interact_f);
+  actionMap.set('self_destruct', self_destruct_f);
 
   app.handleRequest(actionMap);
 });
