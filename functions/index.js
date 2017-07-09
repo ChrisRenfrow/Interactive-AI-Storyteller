@@ -214,6 +214,7 @@ function interact_f (app) {
 
   let actionMap = new Map();
   actionMap.set('attack', attack_f);
+  actionMap.set('navigate', navigate_f);
   actionMap.set('heal', heal_f);
   actionMap.set('look', look_f);
   actionMap.set('take', take_f);
