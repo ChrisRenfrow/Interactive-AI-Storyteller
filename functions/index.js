@@ -141,8 +141,9 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 			bsay = current.bsay;
 		} else if (target != null) {
 			bsay += current.bsay;
+			console.log('I made it here');
 			if (current.enemies != null) {
-				bsay += ' The are enemies nearby, ';
+				bsay += ' There are enemies nearby! ';
 			    for (var e in current.enemies) {
     				bsay += e.alias + ', ';
 				}
