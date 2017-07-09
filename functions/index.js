@@ -142,14 +142,16 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 			console.log('I made it here');
 			if (current.enemies != null) {
 				bsay += ' There are enemies nearby! ';
-			    for (var e in current.enemies) {
-    				bsay += e + ', ';
+				let e = current.enemies[target];
+    			if (e) {
+				    bsay += e.alias + ', ';
 				}
 			}
 			if (current.objects != null) {
     			bsay += ' There\'s also an object here, ';
-    			for (var o in current.objects) {
-				    bsay += o + ', ';
+				let o = current.objects[target];
+    			if (o) {
+				    bsay += o.alias + ', ';
 				}
 			}
 		} else if (target != null) {
