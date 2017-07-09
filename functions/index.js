@@ -181,7 +181,7 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 	function take_f (app) {
 		let target = current.objects[app.getArgument('any')];
 		if (target) {
-			app.ask('Alright, I\'ll grab the ' + target[0] + '...');
+			app.ask('Alright, I\'ll grab the ' + target + '...');
 		} else {
 			app.ask('I don\'t see that here...');
 		}
