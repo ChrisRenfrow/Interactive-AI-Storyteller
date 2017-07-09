@@ -130,19 +130,24 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 
 	function look_f (app) {
 		let target = app.getArgument('any');
-		var bsay = 'The enemies nearby are, ';
+		var bsay;
 		if (target == null) {
-			app.ask(current.bsay);
-		} else if (target.bsay) {
+			bsay += current.bsay;
+		} else if (target != null) {
+			bsay += current.bsay;
 			if (current.enemies != null)
-			    for (var e in current.enemies) {
-					bsay += e.alias + ', ';
-				}
-			if (current.objects != null) {
-				for (var o in current.objects) {
-					bsay += o.alias + ', ';
-				}
+				bsay += ' The are enemies nearby, ';
+			for (var e in current.enemies) {
+				bsay += e.alias + ', ';
 			}
+		}
+		if (current.objects != null) {
+			bsay += 'There\'s also an object here, ';
+			for (var o in current.objects) {
+				bsay += o.alias + ', ';
+			}
+		} else if (target.bsay) {
+			app.ask(target.bsay);
 		} else {
 			app.ask('Nope, that isn\'t here.');
 		}
