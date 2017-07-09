@@ -4,51 +4,148 @@ process.env.DEBUG = 'actions-on-google:*';
 const App = require('actions-on-google').ApiAiApp;
 const functions = require('firebase-functions');
 
-var world = {
-  "locations": [
-    {
-      "alias": "starting zone",
-      "directions": {
-        "north": "rigid structure",
-        "south": "0",
-        "east": "0",
-        "west": "0"
+const map = {
+  "name": "Super Maze",
+  "meta": {
+    "author": "Anurag Jain & Arvind Ravulavaru",
+    "email": " *anurag91jain@gmail.com & arvind.ravulavaru@gmail.com",
+    "tagline": "A Simple Text based Adventure game written in Javascript",
+    "welcome": "Welcome to Maya - A pilot written to test the text based adventure game engine written in Javascript. The aim of the game is to find the exit gate and leave the maze."
+  },
+  "rooms": [{
+    "room1": {
+      "alias": "Start Gate",
+      "description": "You are on the other side of a burnt broken bridge, you look back to see the debris and a steady stream of water. You turn around and see a fountain. (hint : navigate around to explore [ex: `go north`])",
+      "contextualHelp": "Look around and see if you can find something you can use",
+      "actions": null,
+      "exits": {
+        "north": "room2",
+        "east": "-1",
+        "south": "room5",
+        "west": "-1"
       },
-      "entities": [
-        {
-          "alias": "large organism",
-          "desc": "It's a large organism with a several sets of fins"
-        },
-        {
-          "alias": "swarm of small organisms",
-          "desc": "A swarm of seemingly harmless crustacean-type creatures"
-        }
-      ]
-    },
-    {
-      "alias": "rigid structure",
-      "directions": {
-        "north": "0",
-        "south": "starting zone",
-        "east": "0",
-        "west": "0"
-      },
-      "entities": [],
-      "items": [
-        {
-          "alias": "box"
-        },
-        {
-          "alias": "big box"
-        }
-      ]
+      "objects": null,
+      "enemies": null
     }
-  ]
+  }, {
+    "room2": {
+      "alias": "A Fountain",
+      "description": "You are near the fountain. It is in front of a huge mansion. There is a half filled bottle of water just besides it",
+      "contextualHelp": "Water is helpful when you are dehydrated from all the walking around",
+      "actions": null,
+      "exits": {
+        "north": "room6",
+        "east": "room3",
+        "south": "room1",
+        "west": "-1"
+      },
+      "objects": {
+        "bottle": {
+          "actions": null
+        }
+      },
+      "enemies": null
+    }
+  }, {
+    "room3": {
+      "alias": "Forest",
+      "description": "There are trees all around you. There is a sword lying besides you.",
+      "contextualHelp": "You can use swords to kill enemies",
+      "actions": null,
+      "exits": {
+        "north": "room3",
+        "east": "room3",
+        "south": "room3",
+        "west": "room1"
+      },
+      "objects": {
+        "sword": {
+          "actions": "take"
+        }
+      },
+      "enemies": null
+    }
+  }, {
+    "room4": {
+      "alias": "Forest",
+      "description": "Tall trees are all around you. A speck of light is coming from the south.",
+      "contextualHelp": "Forest forest everywhere.. ",
+      "actions": null,
+      "exits": {
+        "north": "-1",
+        "east": "-1",
+        "south": "room7",
+        "west": "room1"
+      },
+      "objects": null,
+      "enemies": null
+    }
+  }, {
+    "room5": {
+      "alias": "Forest",
+      "description": "There are trees all around you",
+      "contextualHelp": "Forest forest everywhere.. ",
+      "actions": null,
+      "exits": {
+        "north": "room1",
+        "east": "room7",
+        "south": "room4",
+        "west": "room8"
+      },
+      "objects": null,
+      "enemies": null
+    }
+  }, {
+    "room6": {
+      "alias": "Mansion",
+      "description": "You have reached the entrance of the huge mansion. The door is locked and all the windows in the front are bolted",
+      "contextualHelp": "Huge mansions are a treasure of objects :)",
+      "actions": {
+        "door": "The door is shut",
+        "windows" : "The windows are bolted"
+      },
+      "exits": {
+        "north": "-1",
+        "east": "-1",
+        "south": "room2",
+        "west": "-1"
+      },
+      "objects": null,
+      "enemies": null
+    }
+  }, {
+    "room7": {
+      "alias": "River",
+      "description": "You are standing on the banks of a fast flowing river.",
+      "contextualHelp": "Ahh!! If only I knew where to go",
+      "actions": null,
+      "exits": {
+        "north": "room4",
+        "east": "-1",
+        "south": "room7",
+        "west": "-1"
+      },
+      "objects": null,
+      "enemies": null
+    }
+  }, {
+    "room8": {
+      "alias": "Exit gate",
+      "description": "You are at the exit gates!! You finally made it!! Thanks for playing Super Maze",
+      "contextualHelp": "",
+      "actions": null,
+      "isExitRoom" : "true",
+      "exits": {
+        "north": "-1",
+        "east": "-1",
+        "south": "-1",
+        "west": "-1"
+      },
+      "objects": null,
+      "enemies": null
+    }
+  }]
 };
-
-var curr_zone = world.locations[0];
-var hp = 100;
-var repair_kit = 2;
 
 exports.underwaterAdventure = functions.https.onRequest((request, response) => {
   const app = new App({request, response});
@@ -64,71 +161,44 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 //      '! I hope you like it. See you next time.');
 //  }
 
-
-function status_f (app) {
-    if (hp == 100)
-	   app.ask('Our status is well, okay.');
-    else if (hp >= 75)
-        app.ask('We\'ve taken some hits. Repairs recommended.');
-    else if (hp >= 50)
-        app.ask('The sub is moderately damaged. Repair ASAP.');
-    else if (hp >= 25)
-        app.ask('Critical damage! Repair immediately!');
-    else
-        app.ask('How are we even alive...');
-}
+// var map = JSON.parse(fs.readFileSync('../asets/maps/super_maze.json', 'utf8'));
+var current = map.rooms['room1'];
 
 function attack_f (app) {
-	hp = hp - 10;
-	app.ask('<speak>Atacking...<break time="1s"/>Torpedo barrel misaligned! '+
-                'Damage taken!</speak>');
+    let target = current.enemies[app.getArgument['any']]
+    if (current.enemies != null && target) {
+        app.ask('Attacking ' + target);
+    } else {
+        app.ask('No enemies...');
+    }
 }
 
 function navigate_f (app) {
-    let directions = {north:1,south:0,east:0,west:1};
-    let target = app.getArgument('any');
-    if (directions[target]) {
-        app.ask('Alright, we\'re going ' + target);
+    let direction = current.exits[app.getArgument['any']];
+    if (direction != '-1') {
+        current = map.rooms[direction];
+        app.ask('Travelling to ' + direction);
     } else {
-        app.ask('We can\'t go that way!');
+        app.ask('No such destination.');
     }
 }
 
-function repair_f (app) {
-    if (repair_kit != 0) {
-        hp = hp + 10;
-        repair_kit = repair_kit - 1;
-    	app.ask('<speak>Repairing...<break time="1s"/>What\'s next Captain?</speak>');
+function heal_f (app) {
+
+}
+
+function look_f (app) {
+    let target = app.getArgument['any'];
+    if (target == null) {
+        app.ask(current.description);
     } else {
-        app.ask('<speak>It seems we have no repair kits...<break time="1s"/>What\'s next Captain?</speak>');
-    }
-}
-
-function scan_f (app) {
-    let bsay = '<speak>Looks like we have something... ';
-    for (var e in curr_zone.entities) {
-        bsay += e.alias + ', ';
-    }
-    bsay += ' What\'s next Captain?</speak>'
-    app.ask(bsay);
-}
-
-function self_destruct_f (app) {
-    app.tell("Well, goodbye cruel world...");
-}
-
-function speak_f (app) {
-    let target = app.getArgument('any');
-    if (target == 'fish') { // Test value is test
-        app.ask('Comunicating with ' + target + '...');
-    } else {
-        app.ask('No such ' + target + ' in range...');
+        app.ask('No such thing...');
     }
 }
 
 function take_f (app) {
-    let target = app.getArgument('any');
-    if (target == 'bagel') {
+    let target = current.objects[app.getArgument('any')];
+    if (target) {
         app.ask('Grabbing ' + target + '...');
     } else {
         app.ask('No such ' + target + ' here...');
@@ -136,23 +206,20 @@ function take_f (app) {
 }
 
 function interact_f (app) {
-    let target = app.getArgument('any');
-    if (target == 'boat') {
-        app.ask('Touching ' + target + '...');
+    let action = map.actions[app.getArgument('any')];
+    if (target) {
+        app.ask(action);
     } else {
-        app.ask('No such ' + target + '...');
+        app.ask('No such thing ' + target + '...');
     }
 }
 
   let actionMap = new Map();
-  actionMap.set('status', status_f);
   actionMap.set('attack', attack_f);
-  actionMap.set('repair', repair_f);
-  actionMap.set('scan', scan_f);
-  actionMap.set('speak', speak_f);
+  actionMap.set('heal', heal_f);
+  actionMap.set('look', look_f);
   actionMap.set('take', take_f);
   actionMap.set('interact', interact_f);
-  actionMap.set('self_destruct', self_destruct_f);
 
   app.handleRequest(actionMap);
 });
