@@ -10,13 +10,13 @@ const map = {
 		'author': 'Chris Renfrow',
 		'email': 'mail@chrisrenfrow.me',
 		'tagline': 'You wakex up in a world of darkness with a spirit as your guide. Will you make it out of the labyrinth?',
-		'welcome': 'Oh, you finally decided to wake up huh? I bet you\'re a bit confused... I\'m Ava, and you are blind and deaf. Oh! But don\'t worry, it\'s temporary, well... it could be if we get to the temple in time. Any questions?'
+		'welcome': 'Oh, you finally decided to wake up huh? I bet you\'re a bit confused... I\'m Ava, and you are blind and deaf. Oh! But don\'t worry, it\'s temporary, well... it could be if we can stop that scaley heathen in time. Any questions?'
 	},
 	'rooms': {
 		'room1': {
 			'alias': 'forest',
 			'bsay': 'We\'re in the middle of a forest. There\'s a clearing directly ahead of us and the mountains are to the left.',
-			'ctxHelp': 'I\'ll guide you wherever you\'d like to go and try my best to keep you out of harm\'s way.',
+			'ctxHelp': 'I\'ll guide you wherever you\'d like to go and try my best to keep you out of harm\'s way. I will be your eyes and ears.',
 			'actions': null,
 			'exits': {
 				'forward': 'room2',
