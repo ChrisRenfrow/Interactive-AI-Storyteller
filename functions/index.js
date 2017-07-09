@@ -170,9 +170,9 @@ function attack_f (app) {
 
 function navigate_f (app) {
     let direction = current.exits[app.getArgument['any']];
-    if (direction != '-1') {
+    if (direction != '-1' && direction) {
         current = map.rooms[direction];
-        app.ask('Travelling to ' + direction);
+        app.ask('Travelling to ' + current.alias);
     } else {
         app.ask('No such destination.');
     }
