@@ -111,7 +111,7 @@ function self_destruct_f (app) {
 
 function speak_f (app) {
     let target = app.getArgument('any');
-    if (tarket == 'fish') { // Test value is test
+    if (target == 'fish') { // Test value is test
         app.ask('Comunicating with ' + target + '...');
     } else {
         app.ask('No such ' + target + ' in range...');
