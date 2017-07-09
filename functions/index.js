@@ -139,8 +139,6 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 		var bsay;
 		if (target == null) {
 			bsay = current.bsay;
-		} else if (target != null) {
-			bsay += current.bsay;
 			console.log('I made it here');
 			if (current.enemies != null) {
 				bsay += ' There are enemies nearby! ';
@@ -154,6 +152,25 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 				    bsay += o.alias + ', ';
 				}
 			}
+		} else if (target != null) {
+            let t;
+            if (current.enemies != null) {
+				t = current.enemies[target];
+			    if (t != null) {
+                    bsay = t.bsay;
+                } else {
+                    bsay = "I don't see that...";
+                }
+			}
+			if (current.objects != null) {
+    			t = current.objects[target];
+                if (t != null) {
+                    bsay = t.bsay;
+                } else {
+                    bsay = "I don't see that...";
+                }
+			}
+		} else if
 		} else if (target.bsay) {
 			app.ask(target.bsay);
 		} else {
