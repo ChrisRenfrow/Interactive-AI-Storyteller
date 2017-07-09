@@ -4,140 +4,99 @@ process.env.DEBUG = 'actions-on-google:*';
 const App = require('actions-on-google').ApiAiApp;
 const functions = require('firebase-functions');
 
+'use strict';
+
+process.env.DEBUG = 'actions-on-google:*';
+const App = require('actions-on-google').ApiAiApp;
+const functions = require('firebase-functions');
+
 const map = {
-	'name': 'Super Maze',
-	'meta': {
-		'author': 'Anurag Jain & Arvind Ravulavaru',
-		'email': ' *anurag91jain@gmail.com & arvind.ravulavaru@gmail.com',
-		'tagline': 'A Simple Text based Adventure game written in Javascript',
-		'welcome': 'Welcome to Maya - A pilot written to test the text based adventure game engine written in Javascript. The aim of the game is to find the exit gate and leave the maze.'
-	},
-	'rooms': {
-		'room1': {
-			'alias': 'Start Gate',
-			'description': 'You are on the other side of a burnt broken bridge, you look back to see the debris and a steady stream of water. You turn around and see a fountain. (hint : navigate around to explore [ex: `go north`])',
-			'contextualHelp': 'Look around and see if you can find something you can use',
-			'actions': null,
-			'exits': {
-				'north': 'room2',
-				'east': '-1',
-				'south': 'room5',
-				'west': '-1'
-			},
-			'objects': null,
-			'enemies': null
-		},
-		'room2': {
-			'alias': 'A Fountain',
-			'description': 'You are near the fountain. It is in front of a huge mansion. There is a half filled bottle of water just besides it',
-			'contextualHelp': 'Water is helpful when you are dehydrated from all the walking around',
-			'actions': null,
-			'exits': {
-				'north': 'room6',
-				'east': 'room3',
-				'south': 'room1',
-				'west': '-1'
-			},
-			'objects': {
-				'bottle': {
-					'actions': null
-				}
-			},
-			'enemies': null
-		},
-		'room3': {
-			'alias': 'Forest',
-			'description': 'There are trees all around you. There is a sword lying besides you.',
-			'contextualHelp': 'You can use swords to kill enemies',
-			'actions': null,
-			'exits': {
-				'north': 'room3',
-				'east': 'room3',
-				'south': 'room3',
-				'west': 'room1'
-			},
-			'objects': {
-				'sword': {
-					'actions': 'take'
-				}
-			},
-			'enemies': null
-		},
-		'room4': {
-			'alias': 'Forest',
-			'description': 'Tall trees are all around you. A speck of light is coming from the south.',
-			'contextualHelp': 'Forest forest everywhere.. ',
-			'actions': null,
-			'exits': {
-				'north': '-1',
-				'east': '-1',
-				'south': 'room7',
-				'west': 'room1'
-			},
-			'objects': null,
-			'enemies': null
-		},
-		'room5': {
-			'alias': 'Forest',
-			'description': 'There are trees all around you',
-			'contextualHelp': 'Forest forest everywhere.. ',
-			'actions': null,
-			'exits': {
-				'north': 'room1',
-				'east': 'room7',
-				'south': 'room4',
-				'west': 'room8'
-			},
-			'objects': null,
-			'enemies': null
-		},
-		'room6': {
-			'alias': 'Mansion',
-			'description': 'You have reached the entrance of the huge mansion. The door is locked and all the windows in the front are bolted',
-			'contextualHelp': 'Huge mansions are a treasure of objects :)',
-			'actions': {
-				'door': 'The door is shut',
-				'windows' : 'The windows are bolted'
-			},
-			'exits': {
-				'north': '-1',
-				'east': '-1',
-				'south': 'room2',
-				'west': '-1'
-			},
-			'objects': null,
-			'enemies': null
-		},
-		'room7': {
-			'alias': 'River',
-			'description': 'You are standing on the banks of a fast flowing river.',
-			'contextualHelp': 'Ahh!! If only I knew where to go',
-			'actions': null,
-			'exits': {
-				'north': 'room4',
-				'east': '-1',
-				'south': 'room7',
-				'west': '-1'
-			},
-			'objects': null,
-			'enemies': null
-		}
-	},
-	'room8': {
-		'alias': 'Exit gate',
-		'description': 'You are at the exit gates!! You finally made it!! Thanks for playing Super Maze',
-		'contextualHelp': '',
-		'actions': null,
-		'isExitRoom' : 'true',
-		'exits': {
-			'north': '-1',
-			'east': '-1',
-			'south': '-1',
-			'west': '-1'
-		},
-		'objects': null,
-		'enemies': null
-	}
+  'name': 'Spirtual Experience',
+  'meta': {
+    'author': 'Chris Renfrow',
+    'email': 'mail@chrisrenfrow.me',
+    'tagline': 'You wake up in a world of darkness with a spirit as your guide. Will you make it out of the labyrinth?',
+    'welcome': 'Oh, you finally decided to wake up huh? I bet you\'re a bit confused... I\'m Ava, and you are blind and deaf. Oh! But don\'t worry, it\'s temporary, well... it could be if we get to the temple in time. Any questions?'
+  },
+  'rooms': {
+    'room1': {
+      'alias': 'forest',
+      'bsay': 'We\'re in the middle of a forest. There\'s a clearing directly ahead of us and the mountains are to the left.',
+      'ctxHelp': 'I\'ll guide you wherever you\'d like to go and try my best to keep you out of harm\'s way.',
+      'actions': null,
+      'exits': {
+        'forward': 'room2',
+        'right': '-1',
+        'back': '-1',
+        'left': 'mountains'
+      },
+      'objects': {
+      	'strange metallic shard': {
+        		'bsay': 'It\'s humming with a strange energy, I\'m not sure what to make of it but it seems like it might be important. Why not pick it up?'
+            'actions': {'take', 'examine'}
+        }
+      },
+      'enemies': null
+    },
+    'room2': {
+      'alias': 'clearing',
+      'bsay': 'Oh, the sky is so beautiful! You should really see- oh, um, nevermind. There\'s an impassable steep hill in front of you past the clearing. There\'s a stone structure to the right and more mountains to the left. The forest is behind us.',
+      'ctxHelp': 'That stone structure looks important but I feel something pulling me toward the mountains...',
+      'actions': null,
+      'exits': {
+        'forward': '-1',
+        'right': 'room4',
+        'back': 'room1',
+        'left': 'room3'
+      },
+      'objects': {
+        'burnt grass': {
+        	'bsay': 'The grass is burned in random spots leading toward the stone structure, some spots are still smoldering...'
+          'actions': {'examine'}
+        }
+      },
+      'enemies': null
+    },
+    'room3': {
+      'alias': 'mountains',
+      'bsay': 'We\'re at the foot of the mountain range. The mountains are so tall! The forest is to the left and the clearing is to the right and behind us.',
+      'ctxHelp': 'Maybe I can break that crystal out of the rock... Just ask me to grab it for you and I\'ll give it my best shot.',
+      'actions': null,
+      'exits': {
+        'forward': '-1',
+        'right': 'room2',
+        'back': 'room2',
+        'left': 'room1'
+      },
+      'objects': {
+        'crystal': {
+        	'alias': 'crystal in the rock'
+        	'bsay': 'There\'s a crystal embedded in the rock... Maybe I could break it out...',
+        	'actions': {'take', 'examine'}
+        }
+      },
+      'enemies': null
+    },
+    'room4': {
+      'alias': 'stone structure',
+      'description': 'These structures are ancient... To the left is the steep hill, the forest is to the right and the clearing is behind us. I think I sense- Oh! There\'s an enemy here!',
+      'contextualHelp': 'I don\'t think we should approach him until we\'ve explored more...',
+      'actions': null,
+      'exits': {
+        'forward': '-1',
+        'right': 'room1',
+        'back': 'room2',
+        'left': '-1'
+      },
+      'objects': null,
+      'enemies': {
+      	'creature': {
+        	'alias': 'reptilian creature leaning against a stone pillar'
+        	'bsay': 'It\'s the reptilian creature that cursed you! I can taste the greed seeping from them. It tastes bad.',
+          'actions': {'attack','examine'}
+        }
+      }
+    }
 };
 
 var current = map.rooms['room1'];
@@ -149,10 +108,10 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 
 	function attack_f (app) {
 		let target = current.enemies[app.getArgument('any')];
-		if (current.enemies != null && target) {
-			app.ask('Attacking ' + target);
+		if (current.enemies != null && current.enemies[target]) {
+			app.ask('I hope this works... Attacking ' + target);
 		} else {
-			app.ask('No enemies...');
+			app.ask('There are no enemies here. Are you okay?');
 		}
 	}
 
@@ -160,9 +119,9 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 		let direction = current.exits[app.getArgument('any')];
 		if (direction != '-1' && direction) {
 			current = map.rooms[direction];
-			app.ask('Travelling to ' + current.alias);
+			app.ask('Alright, guiding you to the ' + current.alias);
 		} else {
-			app.ask('No such destination.');
+			app.ask('Uh, I don\'t see that here...');
 		}
 	}
 
@@ -172,32 +131,42 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 
 	function look_f (app) {
 		let target = app.getArgument('any');
+        var bsay = 'The enemies nearby are, ';
 		if (target == null) {
-			app.ask(current.description);
-		} else if (target) {
-			app.ask('Coming soon');
+			app.ask(current.bsay);
+		} else if (target.bsay) {
+            if (current.enemies != null)
+			    for (var e in current.enemies) {
+                    bsay += e.alias + ', ';
+                }
+            }
+            if (current.objects != null) {
+                for (var o in current.objects) {
+                    bsay += o.alias + ', ';
+                }
+            }
 		} else {
-			app.ask('No such thing...');
+			app.ask('Nope, that isn\'t here.');
 		}
 	}
 
 	function take_f (app) {
 		let target = current.objects[app.getArgument('any')];
 		if (target) {
-			app.ask('Grabbing ' + target[0] + '...');
+			app.ask('Alright, I\'ll grab the ' + target[0] + '...');
 		} else {
-			app.ask('No such object here...');
+			app.ask('I don\'t see that here...');
 		}
 	}
 
-	function interact_f (app) {
-		let action = map.actions[app.getArgument('any')];
-		if (action) {
-			app.ask(action);
-		} else {
-			app.ask('No such thing ' + action + '...');
-		}
-	}
+	// function interact_f (app) {
+	// 	let action = map.actions[app.getArgument('any')];
+	// 	if (action) {
+	// 		app.ask(action);
+	// 	} else {
+	// 		app.ask('No such thing ' + action + '...');
+	// 	}
+	// }
 
 	let actionMap = new Map();
 	actionMap.set('attack', attack_f);
@@ -205,7 +174,7 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 	// actionMap.set('heal', heal_f);
 	actionMap.set('look', look_f);
 	actionMap.set('take', take_f);
-	actionMap.set('interact', interact_f);
+	// actionMap.set('interact', interact_f);
 
 	app.handleRequest(actionMap);
 });
