@@ -167,7 +167,7 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 	// }
 
 	let actionMap = new Map();
-	actionMap.set('welcome', welcome_f);
+	actionMap.set('input.welcome', welcome_f);
 	actionMap.set('attack', attack_f);
 	actionMap.set('navigate', navigate_f);
 	// actionMap.set('heal', heal_f);
