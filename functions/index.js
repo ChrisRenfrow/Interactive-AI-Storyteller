@@ -102,7 +102,7 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 	console.log('Request body: ' + JSON.stringify(request.body));
 
 	function welcome_f (app) {
-		app.ask(map.welcome);
+		app.ask(map.meta.welcome);
 	}
 
 	function attack_f (app) {
