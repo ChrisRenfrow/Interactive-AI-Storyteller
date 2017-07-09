@@ -141,26 +141,15 @@ const map = {
   }
 };
 
+var current = map.rooms['room1'];
 
 exports.underwaterAdventure = functions.https.onRequest((request, response) => {
   const app = new App({request, response});
   console.log('Request headers: ' + JSON.stringify(request.headers));
   console.log('Request body: ' + JSON.stringify(request.body));
 
-// Make a silly name
-//  function makeName (app) {
-//    let number = app.getArgument(NUMBER_ARGUMENT);
-//    let color = app.getArgument(COLOR_ARGUMENT);
-//    app.tell('Alright, your silly name is ' +
-//      color + ' ' + number +
-//      '! I hope you like it. See you next time.');
-//  }
-
-// var map = JSON.parse(fs.readFileSync('../asets/maps/super_maze.json', 'utf8'));
-var current = map.rooms['room1'];
-
 function attack_f (app) {
-    let target = current.enemies[app.getArgument['any']]
+    let target = current.enemies[app.getArgument('any')]
     if (current.enemies != null && target) {
         app.ask('Attacking ' + target);
     } else {
@@ -169,7 +158,7 @@ function attack_f (app) {
 }
 
 function navigate_f (app) {
-    let direction = current.exits[app.getArgument['any']];
+    let direction = current.exits[app.getArgument('any')];
     if (direction != '-1' && direction) {
         current = map.rooms[direction];
         app.ask('Travelling to ' + current.alias);
@@ -183,8 +172,7 @@ function heal_f (app) {
 }
 
 function look_f (app) {
-    let target = app.getArgument['any'];
-    console.log(JSON.stringify(current));
+    let target = app.getArgument('any');
     if (target == null) {
         app.ask(current.description);
     } else if (target) {
