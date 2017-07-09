@@ -12,7 +12,7 @@ const map = {
     "tagline": "A Simple Text based Adventure game written in Javascript",
     "welcome": "Welcome to Maya - A pilot written to test the text based adventure game engine written in Javascript. The aim of the game is to find the exit gate and leave the maze."
   },
-  "rooms": [{
+  "rooms": {
     "room1": {
       "alias": "Start Gate",
       "description": "You are on the other side of a burnt broken bridge, you look back to see the debris and a steady stream of water. You turn around and see a fountain. (hint : navigate around to explore [ex: `go north`])",
@@ -26,8 +26,7 @@ const map = {
       },
       "objects": null,
       "enemies": null
-    }
-  }, {
+    },
     "room2": {
       "alias": "A Fountain",
       "description": "You are near the fountain. It is in front of a huge mansion. There is a half filled bottle of water just besides it",
@@ -45,8 +44,7 @@ const map = {
         }
       },
       "enemies": null
-    }
-  }, {
+    },
     "room3": {
       "alias": "Forest",
       "description": "There are trees all around you. There is a sword lying besides you.",
@@ -64,8 +62,7 @@ const map = {
         }
       },
       "enemies": null
-    }
-  }, {
+    },
     "room4": {
       "alias": "Forest",
       "description": "Tall trees are all around you. A speck of light is coming from the south.",
@@ -79,8 +76,7 @@ const map = {
       },
       "objects": null,
       "enemies": null
-    }
-  }, {
+    },
     "room5": {
       "alias": "Forest",
       "description": "There are trees all around you",
@@ -94,8 +90,7 @@ const map = {
       },
       "objects": null,
       "enemies": null
-    }
-  }, {
+    },
     "room6": {
       "alias": "Mansion",
       "description": "You have reached the entrance of the huge mansion. The door is locked and all the windows in the front are bolted",
@@ -112,8 +107,7 @@ const map = {
       },
       "objects": null,
       "enemies": null
-    }
-  }, {
+    },
     "room7": {
       "alias": "River",
       "description": "You are standing on the banks of a fast flowing river.",
@@ -128,7 +122,7 @@ const map = {
       "objects": null,
       "enemies": null
     }
-  }, {
+  },
     "room8": {
       "alias": "Exit gate",
       "description": "You are at the exit gates!! You finally made it!! Thanks for playing Super Maze",
@@ -144,8 +138,9 @@ const map = {
       "objects": null,
       "enemies": null
     }
-  }]
+  }
 };
+
 
 exports.underwaterAdventure = functions.https.onRequest((request, response) => {
   const app = new App({request, response});
@@ -189,6 +184,7 @@ function heal_f (app) {
 
 function look_f (app) {
     let target = app.getArgument['any'];
+    console.log(JSON.stringify(current));
     if (target == null) {
         app.ask(current.description);
     } else if (target) {
