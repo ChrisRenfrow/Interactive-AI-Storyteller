@@ -153,24 +153,23 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 				}
 			}
 		} else if (target != null) {
-            let t;
-            if (current.enemies != null) {
+			let t;
+			if (current.enemies != null) {
 				t = current.enemies[target];
 			    if (t != null) {
-                    bsay = t.bsay;
-                } else {
-                    bsay = "I don't see that...";
-                }
+					bsay = t.bsay;
+				} else {
+					bsay = 'I don\'t see that...';
+				}
 			}
 			if (current.objects != null) {
     			t = current.objects[target];
-                if (t != null) {
-                    bsay = t.bsay;
-                } else {
-                    bsay = "I don't see that...";
-                }
+				if (t != null) {
+					bsay = t.bsay;
+				} else {
+					bsay = 'I don\'t see that...';
+				}
 			}
-		} else if
 		} else if (target.bsay) {
 			app.ask(target.bsay);
 		} else {
