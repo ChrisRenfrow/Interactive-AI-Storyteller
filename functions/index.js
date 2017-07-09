@@ -136,7 +136,7 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 		let target = app.getArgument('any');
 		var bsay;
 		if (target == null) {
-			bsay += current.bsay;
+			bsay = current.bsay;
 		} else if (target != null) {
 			bsay += current.bsay;
 			if (current.enemies != null) {
