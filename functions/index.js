@@ -135,7 +135,7 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 	// }
 
 	function look_f (app) {
-		let target = app.getArgument('any');
+		let target = app.getArgument('thing');
 		var bsay;
 		if (target == null) {
 			bsay = current.bsay;
