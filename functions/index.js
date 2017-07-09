@@ -147,9 +147,9 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 				}
 			}
 			if (current.objects != null) {
-    			bsay += 'There\'s also an object here, ';
+    			bsay += ' There\'s also an object here, ';
     			for (var o in current.objects) {
-				    bsay += o.alias + ', ';
+				    bsay += o[0] + ', ';
 				}
 			}
 		} else if (target != null) {
