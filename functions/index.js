@@ -4,7 +4,7 @@ process.env.DEBUG = 'actions-on-google:*';
 const App = require('actions-on-google').ApiAiApp;
 const functions = require('firebase-functions');
 
-const map = {
+var map = {
   "name": "Super Maze",
   "meta": {
     "author": "Anurag Jain & Arvind Ravulavaru",
@@ -138,9 +138,9 @@ const map = {
       "objects": null,
       "enemies": null
     }
-  }
 };
 
+var current = map.rooms['room1'];
 
 exports.underwaterAdventure = functions.https.onRequest((request, response) => {
   const app = new App({request, response});
@@ -157,10 +157,9 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 //  }
 
 // var map = JSON.parse(fs.readFileSync('../asets/maps/super_maze.json', 'utf8'));
-var current = map.rooms['room1'];
 
 function attack_f (app) {
-    let target = current.enemies[app.getArgument['any']]
+    let target = current.enemies[app.getArgument('any')]
     if (current.enemies != null && target) {
         app.ask('Attacking ' + target);
     } else {
@@ -169,7 +168,7 @@ function attack_f (app) {
 }
 
 function navigate_f (app) {
-    let direction = current.exits[app.getArgument['any']];
+    let direction = current.exits[app.getArgument('any')];
     if (direction != '-1' && direction) {
         current = map.rooms[direction];
         app.ask('Travelling to ' + current.alias);
@@ -183,8 +182,7 @@ function heal_f (app) {
 }
 
 function look_f (app) {
-    let target = app.getArgument['any'];
-    console.log(JSON.stringify(current));
+    let target = app.getArgument('any');
     if (target == null) {
         app.ask(current.description);
     } else if (target) {
@@ -204,11 +202,11 @@ function take_f (app) {
 }
 
 function interact_f (app) {
-    let action = map.actions[app.getArgument('any')];
-    if (target) {
+    let action = current.actions[app.getArgument('any')];
+    if (action) {
         app.ask(action);
     } else {
-        app.ask('No such thing ' + target + '...');
+        app.ask('No such thing...');
     }
 }
 
