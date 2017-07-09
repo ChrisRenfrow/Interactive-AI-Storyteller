@@ -191,6 +191,8 @@ function look_f (app) {
     let target = app.getArgument['any'];
     if (target == null) {
         app.ask(current.description);
+    } else if (target) {
+        app.ask('Coming soon');
     } else {
         app.ask('No such thing...');
     }
