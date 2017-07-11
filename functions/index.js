@@ -3,17 +3,9 @@
 process.env.DEBUG = 'actions-on-google:*';
 const App = require('actions-on-google').ApiAiApp;
 const functions = require('firebase-functions');
-const request = require('request');
 
-const HOST_URL = 'https://interactive-fiction-9f0ad.firebaseapp.com/';
-const PUBLIC_URL = HOST_URL + 'public/';
-const MAPS_URL = PUBLIC_URL + 'maps/';
-
-const SELECTED_MAP_URL = MAPS_URL + 'TEMPLATE.json';
-const START_ZONE = 'zone1';
-
-var map = null;
-var zone = null;
+var world = require('./TEMPLATE.json');
+var zone = world.zones['zone1'];
 
 exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 	const app = new App({request, response});
@@ -21,7 +13,7 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 	console.log('Request body: ' + JSON.stringify(request.body));
 
 	function welcome_f (app) {
-		app.ask(map.meta.welcome);
+		app.ask('Hey, I\'m broken right now. Don\'t look! >//_//<');
 	}
 
 	function help_f (app) {
@@ -40,7 +32,8 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 	function navigate_f (app) {
 		let direction = zone.exits[app.getArgument('Directions')];
 		if (direction != '-1' && direction) {
-			zone = map.rooms[direction];
+			console.log(JSON.stringify(world.rooms));
+			zone = world.rooms[direction];
 			app.ask('Alright, guiding you to the ' + zone.alias);
 		} else {
 			app.ask('Uh, I don\'t see that here...');
@@ -56,7 +49,6 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 		var bsay;
 		if (target == null) {
 			bsay = zone.bsay;
-			console.log('I made it here');
 			if (zone.enemies != null) {
 				bsay += ' There are enemies nearby! ';
 				let e = zone.enemies[target];
@@ -124,17 +116,6 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 	actionMap.set('look', look_f);
 	actionMap.set('take', take_f);
 	// actionMap.set('interact', interact_f);
-	if (zone == null) {
-		request({
-			url: SELECTED_MAP_URL,
-			json: true
-		}, function (error, response, body) {
-			if (!error && response.statusCode === 200) {
-				console.log(body); // Print the json response
-			}
-			map = JSON.parse(body);
-		});
-		zone = map.zones[START_ZONE];
-	}
+
 	app.handleRequest(actionMap);
 });

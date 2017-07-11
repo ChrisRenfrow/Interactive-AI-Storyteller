@@ -1,10 +1,10 @@
 {
-  "name": "silly-name-maker",
-  "description": "Find out your silly name!",
+  "name": "interactive-ai-storyteller",
+  "description": "Explore a world with nothing but your own words",
   "version": "0.0.1",
   "private": true,
   "license": "Apache Version 2.0",
-  "author": "Google Inc.",
+  "author": "Chris Renfrow & Dan Goncharov",
   "engines": {
     "node": "~4.2"
   },
@@ -17,7 +17,8 @@
   "dependencies": {
     "actions-on-google": "^1.0.0",
     "firebase-admin": "^4.2.1",
-    "firebase-functions": "^0.5.7"
+    "firebase-functions": "^0.5.7",
+    "request": "^2.81.0"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
