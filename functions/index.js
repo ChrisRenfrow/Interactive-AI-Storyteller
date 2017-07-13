@@ -4,7 +4,10 @@ process.env.DEBUG = 'actions-on-google:*';
 const App = require('actions-on-google').ApiAiApp;
 const functions = require('firebase-functions');
 
-var world = require('./avas_story.json');
+var STORY = './stories/avas_story';
+var world = require(STORY + '/plot.json');
+var bot = require(STORY + '/bot_info.json');
+var world_dict = require(STORY + '/dictionary.json');
 var zone = world.zones['zone1'];
 
 exports.underwaterAdventure = functions.https.onRequest((request, response) => {
@@ -42,8 +45,7 @@ exports.underwaterAdventure = functions.https.onRequest((request, response) => {
 				}
 			}
 		} else {
-			app.ask('Get gud');
-			//			app.ask('We can\'t go that way...');
+			app.ask('We can\'t go that way...');
 		}
 	}
 

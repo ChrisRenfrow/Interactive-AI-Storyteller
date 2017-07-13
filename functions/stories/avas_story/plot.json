@@ -1,0 +1,113 @@
+{
+    "name": "Ava's Story",
+    "meta": {
+        "version": "0.0.1",
+        "author": "Chris Renfrow, Meo Leung & Dan Goncharov",
+        "email": "",
+        "tagline": "..."
+    },
+    "world_info": {
+        "location": "We're in the United Western Alliance."
+    },
+    "zones": {
+        "zone1": {
+            "alias": "lab",
+            "bsay": [
+                "We’re in the underground lab where we were performing C.I.D. chip removals… It’s evidently abandoned now after our members have been recycled. There's a door straight ahead of us."
+            ],
+            "ctxHelp": [
+                "Just tell me where you want to go and I'll guide you, I know this must be hard for you but I know you're capable.",
+                "Whenever you're ready we can go."
+            ],
+            "actions": null,
+            "exits": {
+                "forward": {
+                    "alt": [
+                        "door",
+                        "out",
+                        "metro"
+                    ],
+                    "link": "zone2"
+                },
+                "right": {
+                    "alt": null,
+                    "link": null
+                },
+                "back": {
+                    "alt": null,
+                    "link": null
+                },
+                "left": {
+                    "alt": null,
+                    "link": null
+                }
+            },
+            "objects": null,
+            "entities": null
+        },
+        "zone2": {
+            "alias": "metro",
+            "bsay": [
+                "Okay, we're at the metro...",
+                "Alright we're here."
+            ],
+            "ctxHelp": [
+                "Do you have any questions for me?",
+                "I have a plan, want to hear it?"
+            ],
+            "actions": null,
+            "exits": {
+                "forward": {
+                    "alt": null,
+                    "link": null
+                },
+                "right": {
+                    "alt": null,
+                    "link": null
+                },
+                "back": {
+                    "alt": [
+                        "clinic",
+                        "lab"
+                    ],
+                    "link": "zone1"
+                },
+                "left": null
+            },
+            "objects": null,
+            "entities": null
+        },
+        "zone3": {
+            "alias": "metro",
+            "bsay": [
+                "Okay, we're at the metro...",
+                "Alright we're here."
+            ],
+            "ctxHelp": [
+                "Do you have any questions for me?",
+                "I have a plan, want to hear it?"
+            ],
+            "actions": null,
+            "exits": {
+                "forward": {
+                    "alt": null,
+                    "link": null
+                },
+                "right": {
+                    "alt": null,
+                    "link": null
+                },
+                "back": {
+                    "alt": [
+                        "clinic",
+                        "lab"
+                    ],
+                    "link": "zone1"
+                },
+                "left": null
+            },
+            "objects": null,
+            "entities": null
+        }
+    }
+}

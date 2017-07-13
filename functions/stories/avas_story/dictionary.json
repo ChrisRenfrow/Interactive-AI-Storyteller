@@ -1,0 +1,32 @@
+{
+    "meta": {
+        "version": "0.0.1",
+        "author": "crenfrow"
+    },
+    "dict": {
+        "nova": {
+            "alt": null,
+            "desc": [
+                "We’re a group of outstanding individuals that have been chosen to help with my cause. Most are government officials who are discontent with the current implanted chip I.D. system. We were looking to escape the government / the system before we got caught and recycled.",
+                "alt descript"
+            ]
+        },
+        "cid": {
+            "alt": [
+                "C.I.D."
+            ],
+            "desc": [
+                "C.I.D. stands for Citizen ID, everyone has this chip embedded in their skin.",
+                "It's what identifies everyone these days."
+            ]
+        },
+        "recycle": {
+            "alt": [
+                "recycling"
+            ],
+            "desc": [
+                "Recycling human bodies… means that the consciousness of an older Prime citizen gets downloaded into a body and overwrites that person’s existing consciousness. It’s how the government has been solving mortality of its Prime citizens as well as overpopulation for the past thirty years."
+            ]
+        }
+    }
+}
