@@ -1,0 +1,120 @@
+{
+    "name": "Test Story",
+    "meta": {
+        "version": "0.0.1",
+        "author": "crenfrow",
+        "email": "",
+        "tagline": "..."
+    },
+    "zones": {
+        "zone1": {
+            "alias": "Test Room 1",
+            "bsay": [
+                "We're in a plain and sterile room seemingly lit from all angles. There's a room marked 'Test Room 2' in front of us."
+            ],
+            "ctxHelp": [
+                "Just tell me where to go."
+            ],
+            "actions": null,
+            "exits": {
+                "forward": {
+                    "alt": [
+                        "forward",
+                        "room one",
+                        "test room",
+                        "test room one"
+                    ],
+                    "link": "zone2"
+                },
+                "right": {
+                    "alt": null,
+                    "link": null
+                },
+                "back": {
+                    "alt": null,
+                    "link": null
+                },
+                "left": {
+                    "alt": null,
+                    "link": null
+                }
+            },
+            "objects": null,
+            "entities": null
+        },
+        "zone2": {
+            "alias": "Test Room 2",
+            "bsay": [
+                "We're in a plain and sterile room seemingly lit from all angles. There's a door marked 'Test Room 3' in front of us and a door marked 'Test Room 1' behind."
+            ],
+            "ctxHelp": [
+                "Just tell me where to go."
+            ],
+            "actions": null,
+            "exits": {
+                "forward": {
+                    "alt": [
+                        "forward",
+                        "room two",
+                        "test room",
+                        "test room two"
+                    ],
+                    "link": "zone2"
+                },
+                "right": {
+                    "alt": null,
+                    "link": null
+                },
+                "back": {
+                    "alt": [
+                        "forward",
+                        "room one",
+                        "test room",
+                        "test room one"
+                    ],
+                    "link": "zone1"
+                },
+                "left": null
+            },
+            "objects": null,
+            "entities": null
+        },
+        "zone3": {
+            "alias": "Test Room 3",
+            "bsay": [
+                "We're in a plain and sterile room seemingly lit from all angles. There's a door marked 'Test Room 1' in front of us and a door marked 'Test Room 2' behind."
+            ],
+            "ctxHelp": [
+                "Just tell me where to go."
+            ],
+            "actions": null,
+            "exits": {
+                "forward": {
+                    "alt": [
+                        "forward",
+                        "room one",
+                        "test room",
+                        "test room one"
+                    ],
+                    "link": "zone1"
+                },
+                "right": {
+                    "alt": null,
+                    "link": null
+                },
+                "back": {
+                    "alt": [
+                        "back",
+                        "room two",
+                        "test room",
+                        "test room two"
+                    ],
+                    "link": "zone2"
+                },
+                "left": null
+            },
+            "objects": null,
+            "entities": null
+        }
+    }
+}

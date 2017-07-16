@@ -1,0 +1,60 @@
+{
+    "about": {
+        "name": "template",
+        "age": "42"
+    },
+    "dialogue": {
+        "conversation": {
+            "welcome": [
+                "Hey there, do you remember what happened?",
+                "Alternative expositional opening."
+            ]
+        },
+        "actions": {
+            "navigate": {
+                "true": [
+                    "Off we go!",
+                    "Headed toward %s"
+                ],
+                "false": [
+                    "I don't see %s here...",
+                    "Nope, that's not here."
+                ],
+                "missing": [
+                    "Where did you say you wanted to go?"
+                ]
+            },
+            "interact": {
+                "true": [
+                    "Okay, using %s."
+                ],
+                "false": [
+                    "We can't use that..."
+                ],
+                "missing": [
+                    "What did you want to use?"
+                ]
+            },
+            "attack": {
+                "true": [
+                    "Attacking $s!"
+                ],
+                "false": [
+                    "No..."
+                ],
+                "missing": [
+                    "No..."
+                ]
+            },
+            "help": {
+                "true": null,
+                "false": [
+                    "Hmm, I'm not sure how to help you with that."
+                ],
+                "missing": [
+                    "What do you need help with?"
+                ]
+            }
+        }
+    }
+}

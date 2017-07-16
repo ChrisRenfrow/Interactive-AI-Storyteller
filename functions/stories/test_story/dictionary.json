@@ -1,0 +1,14 @@
+{
+    "meta": {
+        "version": "0.0.1",
+        "author": "crenfrow"
+    },
+    "dict": {
+        "bot": {
+            "alt": null,
+            "desc": [
+                "A robot. Typically built to automate things. In this case, story-telling."
+            ]
+        }
+    }
+}

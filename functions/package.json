@@ -18,7 +18,8 @@
     "actions-on-google": "^1.0.0",
     "firebase-admin": "^4.2.1",
     "firebase-functions": "^0.5.7",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "sprintf-js": "^1.1.1"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
