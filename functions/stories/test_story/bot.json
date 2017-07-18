@@ -60,6 +60,17 @@
                     "What are we attacking?"
                 ]
             },
+            "take": {
+                "true": [
+                    "Got %s."
+                ],
+                "false": [
+                    "Doesn't look like %s is here..."
+                ],
+                "missing": [
+                    "What did you want to grab?"
+                ]
+            },
             "help": {
                 "true": null,
                 "false": [
@@ -77,6 +88,18 @@
                 "missing": [
                     "What did you want to see?",
                     "I missed that, what do you want to look at?"
+                ]
+            },
+            "inventory": {
+                "true": [
+                    "Well, we've got ",
+                    "Let's see, we have ",
+                    "Digging around, looks like we have "
+                ],
+                "false": [
+                    "Doesn't look like you have anything in your inventory.",
+                    "Your inventory is remarkably empty.",
+                    "I've never seen a cleaner inventory in all of my cycles."
                 ]
             }
         }

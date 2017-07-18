@@ -3,8 +3,8 @@
     "meta": {
         "version": "0.0.1",
         "author": "crenfrow",
-        "email": "",
-        "tagline": "..."
+        "email": "mail@chrisrenfrow.me",
+        "tagline": "Test test, is this thing on?"
     },
     "zones": {
         "zone1": {
@@ -32,7 +32,24 @@
                 "back": null,
                 "left": null
             },
-            "objects": null,
+            "objects": [
+                {
+                    "id": "something sharp",
+                    "alt": [
+                        "sharp thing",
+                        "sharp"
+                    ],
+                    "bsay": "It's sharp and metallic, like me."
+                },
+                {
+                    "id": "something dull",
+                    "alt": [
+                        "dull thing",
+                        "dull"
+                    ],
+                    "bsay": "It's a short, dull wooden thing. Reminds me of someone..."
+                }
+            ],
             "entities": null
         },
         "zone2": {

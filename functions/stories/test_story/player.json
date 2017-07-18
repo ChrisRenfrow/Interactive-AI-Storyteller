@@ -1,0 +1,23 @@
+{
+    "name": "Fubar",
+    "hp": 100,
+    "inventory": [
+        {
+            "id": "bit",
+            "bsay": "It's a bit."
+        },
+        {
+            "id": "byte",
+            "bsay": "It's 8 bits."
+        },
+        {
+            "id": "kilobyte",
+            "bsay": "It's 1000 bytes!"
+        },
+        {
+            "id": "megabyte",
+            "bsay": "It's 1000 kilobytes!"
+        }
+    ],
+    "current": "zone1"
+}

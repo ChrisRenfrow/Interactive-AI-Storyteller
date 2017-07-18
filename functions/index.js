@@ -8,8 +8,9 @@ const vsprintf = require('sprintf-js').vsprintf;
 var STORY = './stories/test_story';
 var world = require(STORY + '/world.json');
 var bot = require(STORY + '/bot.json');
+var player = require(STORY + '/player.json');
 var world_dict = require(STORY + '/dictionary.json');
-var zone = world.zones['zone1'];
+var zone = world.zones[player.current];
 
 // Utility function to pick random replies
 function getRandomReply (array) {
@@ -29,10 +30,9 @@ function getContextHelp () {
 }
 // Attempts to use specified exit and returns the appropriate reply
 function goDirection (direction) {
-	console.log('Current Zone: ' + JSON.stringify(zone));
 	if (zone.exits[direction] != null) {
 		zone = world.zones[zone.exits[direction].link];
-		console.log('New Zone: ' + JSON.stringify(zone));
+		console.log(world.zones[zone.exits[e].link]);
 		return (vsprintf(getRandomReply(bot.dialogue.actions.navigate.true), direction));
 	} else {
 		return (vsprintf(getRandomReply(bot.dialogue.actions.navigate.false), direction));
@@ -41,16 +41,15 @@ function goDirection (direction) {
 // Determines whether or not a direction can be referred to by the given target id,
 // if so it uses the exit and and returns the appropriate reply
 function goTarget (target) {
-	console.log('Current Zone: ' + JSON.stringify(zone));
 	for (let e in zone.exits) {
 		if (zone.exits[e] != null) {
 			for (let v in zone.exits[e].alt) {
 				if (zone.exits[e].alt[v] == target) {
+					console.log(world.zones[zone.exits[e].link]);
 					if (world.zones[zone.exits[e].link] == null) {
 						return ('Something went wrong! Bad link perhaps?');
 					} else {
 						zone = world.zones[zone.exits[e].link];
-						console.log('New Zone: ' + JSON.stringify(zone));
 						return (vsprintf(getRandomReply(bot.dialogue.actions.navigate_o.true), zone.alias));
 					}
 				}
@@ -60,15 +59,70 @@ function goTarget (target) {
 	return (vsprintf(getRandomReply(bot.dialogue.actions.navigate_o.false), target));
 }
 // Returns the text for looking at a target or the player's surroundings
-function lookAt (target) {
+function lookAtTarget (target) {
 	let objects = zone.objects;
+	let inventory = player.inventory;
 	for (let o in objects) {
-		console.log(objects[o]);
-		if (objects[o] == target && objects[o].bsay != null) {
-			return (objects[o].bsay);
+		for (let a in objects[o].alt) {
+			if (objects[o].alt[a] == target && objects[o].bsay != null) {
+				return (objects[o].bsay);
+			}
 		}
 	}
-	return (bot.dialogue.actions.look.false);
+	for (let i in inventory) {
+		if (inventory[i].id == target && inventory[i].bsay != null) {
+			return (inventory[i].bsay);
+		}
+	}
+	return (getRandomReply(bot.dialogue.actions.look.false));
+}
+
+function lookAround () {
+	let objects = zone.objects;
+	let len;
+	let end = ',';
+	let bsay;
+
+	if (zone.bsay != null) {
+		bsay = getRandomReply(zone.bsay) + ' ';
+	}
+	if (zone.objects != null) {
+		len = zone.objects.length;
+		if (len > 1) {
+			bsay += 'There are also some objects here. Looks like ';
+		} else {
+			bsay += 'There\'s an object here, ';
+		}
+		for (let i = 0; i < len; i++) {
+			if (objects[i].bsay != null) {
+				if (i == len - 1) {
+					bsay += ' and ';
+					end = '.';
+				}
+				bsay += ' ' + objects[i].id + end;
+			}
+		}
+	}
+	return (bsay);
+}
+
+function listInventory () {
+	let bsay = getRandomReply(bot.dialogue.actions.inventory.true);
+	let len = player.inventory.length;
+	let end = ',';
+	if (len == 0) {
+		return (getRandomReply(bot.dialogue.actions.inventory.false));
+	}
+	for (let i = 0; i < len; i++) {
+		if (player.inventory[i] != null) {
+			if (i == len - 1) {
+				bsay += ' and ';
+				end = '.';
+			}
+			bsay += ' a ' + player.inventory[i].id + end;
+		}
+	}
+	return (bsay);
 }
 
 exports.interactiveStory = functions.https.onRequest((request, response) => {
@@ -85,11 +139,9 @@ exports.interactiveStory = functions.https.onRequest((request, response) => {
 	}
 
 	function navigate_f (app) {
-
-		let direction = app.getArgument('Directions');
-		let target = app.getArgument('location');
+		let direction = app.getArgument('Directions').toLowerCase();
+		let target = app.getArgument('location').toLowerCase();
 		let bsay;
-
 		if (direction != null) {
 			bsay = goDirection(direction);
 		} else if (target != null) {
@@ -101,22 +153,24 @@ exports.interactiveStory = functions.https.onRequest((request, response) => {
 	}
 
 	function look_f (app) {
-		let target = app.getArgument('thing');
+		let target = app.getArgument('thing').toLowerCase();
 		let bsay;
 		if (target != null) {
-			bsay = lookAt(target);
+			bsay = lookAtTarget(target);
 		} else if (zone != null) {
-			if (zone.bsay != null) {
-				bsay = getRandomReply(zone.bsay);
-			}
+			bsay = lookAround();
 		} else {
 			bsay = getRandomReply(bot.dialogue.actions.look.missing);
 		}
 		app.ask(bsay);
 	}
 
+	function inventory_f (app) {
+		app.ask(listInventory());
+	}
+
 	function take_f (app) {
-		let target = zone.objects[app.getArgument('any')];
+		let target = app.getArgument('any').toLowerCase();
 		if (target) {
 			app.ask('Alright, I\'ll grab the ' + target.alias + '...');
 		} else {
@@ -125,7 +179,7 @@ exports.interactiveStory = functions.https.onRequest((request, response) => {
 	}
 
 	function attack_f (app) {
-		let target = zone.entities[app.getArgument('target')];
+		let target = app.getArgument('target').toLowerCase();
 		app.ask(vsprintf(getRandomReply(bot.dialogue.actions.attack.true),target));
 	}
 
@@ -144,6 +198,7 @@ exports.interactiveStory = functions.https.onRequest((request, response) => {
 	actionMap.set('input.navigate', navigate_f);
 	actionMap.set('input.look', look_f);
 	actionMap.set('input.take', take_f);
+	actionMap.set('input.inventory', inventory_f);
 	actionMap.set('input.attack', attack_f);
 	actionMap.set('debug.meta', listMeta);
 
