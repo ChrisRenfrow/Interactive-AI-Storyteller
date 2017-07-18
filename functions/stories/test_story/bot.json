@@ -14,16 +14,28 @@
             "navigate": {
                 "true": [
                     "Alright, we're going.",
-                    "Headed toward %s",
+                    "Headed %s",
                     "Off we go."
                 ],
                 "false": [
-                    "I don't see %s here...",
-                    "Nope, that's not here.",
-                    "Hmm, not sure where you want to go..."
+                    "We can't go %s",
+                    "Nope, can't go that way."
                 ],
                 "missing": [
                     "Wait, where did you say you wanted to go?"
+                ]
+            },
+            "navigate_o": {
+                "true": [
+                    "Going toward %s",
+                    "Headed toward %s"
+                ],
+                "false": [
+                    "I don't see %s here...",
+                    "Nope, that's not here."
+                ],
+                "missing": [
+                    "Wait, where did you want to go?"
                 ]
             },
             "interact": {
@@ -54,9 +66,17 @@
                     "Hmm, I'm not sure how to help you with that.",
                     "Maybe you need to look around more?"
                 ],
+                "missing": null
+            },
+            "look": {
+                "true": null,
+                "false": [
+                    "I don't see that here",
+                    "Nope, %s simply isn't here."
+                ],
                 "missing": [
-                    "What do you need help with?",
-                    "Help? What do you need help with?"
+                    "What did you want to see?",
+                    "I missed that, what do you want to look at?"
                 ]
             }
         }

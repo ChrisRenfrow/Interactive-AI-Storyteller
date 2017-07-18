@@ -12,32 +12,25 @@
             "bsay": [
                 "We're in a plain and sterile room seemingly lit from all angles. There's a room marked 'Test Room 2' in front of us."
             ],
-            "ctxHelp": [
+            "context_help": [
                 "Just tell me where to go."
             ],
             "actions": null,
             "exits": {
                 "forward": {
                     "alt": [
-                        "forward",
-                        "room one",
-                        "test room",
-                        "test room one"
+                        "room 2",
+                        "room to",
+                        "room too",
+                        "test room 2",
+                        "test room to",
+                        "test room too"
                     ],
                     "link": "zone2"
                 },
-                "right": {
-                    "alt": null,
-                    "link": null
-                },
-                "back": {
-                    "alt": null,
-                    "link": null
-                },
-                "left": {
-                    "alt": null,
-                    "link": null
-                }
+                "right": null,
+                "back": null,
+                "left": null
             },
             "objects": null,
             "entities": null
@@ -45,31 +38,34 @@
         "zone2": {
             "alias": "Test Room 2",
             "bsay": [
-                "We're in a plain and sterile room seemingly lit from all angles. There's a door marked 'Test Room 3' in front of us and a door marked 'Test Room 1' behind."
+                "We're in a plain and sterile room seemingly lit from all angles. There's a door marked 'Test Room 3' in front of us and a door marked 'Test Room 1' behind. There's also a crack in the wall to the right, it might be big enough for you to fit through."
             ],
-            "ctxHelp": [
+            "context_help": [
                 "Just tell me where to go."
             ],
             "actions": null,
             "exits": {
                 "forward": {
                     "alt": [
-                        "forward",
-                        "room two",
-                        "test room",
-                        "test room two"
+                        "room 3",
+                        "room three",
+                        "test room 3",
+                        "test room three"
                     ],
-                    "link": "zone2"
+                    "link": "zone3"
                 },
                 "right": {
-                    "alt": null,
-                    "link": null
+                    "alt": [
+                        "crack",
+                        "secret passage"
+                    ],
+                    "link": "zone4"
                 },
                 "back": {
                     "alt": [
-                        "forward",
+                        "room 1",
                         "room one",
-                        "test room",
+                        "test room 1",
                         "test room one"
                     ],
                     "link": "zone1"
@@ -84,30 +80,27 @@
             "bsay": [
                 "We're in a plain and sterile room seemingly lit from all angles. There's a door marked 'Test Room 1' in front of us and a door marked 'Test Room 2' behind."
             ],
-            "ctxHelp": [
+            "context_help": [
                 "Just tell me where to go."
             ],
             "actions": null,
             "exits": {
                 "forward": {
                     "alt": [
-                        "forward",
-                        "room one",
-                        "test room",
-                        "test room one"
+                        "room 1",
+                        "test room 1"
                     ],
                     "link": "zone1"
                 },
-                "right": {
-                    "alt": null,
-                    "link": null
-                },
+                "right": null,
                 "back": {
                     "alt": [
-                        "back",
-                        "room two",
-                        "test room",
-                        "test room two"
+                        "room 2",
+                        "room to",
+                        "room too",
+                        "test room 2",
+                        "test room to",
+                        "test room too"
                     ],
                     "link": "zone2"
                 },
@@ -116,5 +109,33 @@
             "objects": null,
             "entities": null
         }
+    },
+    "zone4": {
+        "alias": "Secret Room",
+        "bsay": [
+            "This room appears to have been lived in by someone at one time, there are scribbles on the wall, ravings of a mad man or woman. There is an exit behind us leading back to test room 2."
+        ],
+        "context_help": [
+            "Nothing of use here."
+        ],
+        "actions": null,
+        "exits": {
+            "forward": null,
+            "right": null,
+            "back": {
+                "alt": [
+                    "room 2",
+                    "room to",
+                    "room too",
+                    "test room 2",
+                    "test room to",
+                    "test room too"
+                ],
+                "link": "zone2"
+            },
+            "left": null
+        },
+        "objects": null,
+        "entities": null
     }
 }
