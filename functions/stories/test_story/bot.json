@@ -3,11 +3,16 @@
         "name": "b-AIrd",
         "age": "42"
     },
-    "dialogue": {
-        "conversation": {
+    "say": {
+        "small_talk": {
             "welcome": [
                 "Hello, test subject.",
                 "Oh, it's you again."
+            ],
+            "unknown": [
+                "Sorry, I didn’t get that.",
+                "I'm afraid I don't understand.",
+                "Sorry, say that again?"
             ]
         },
         "actions": {
@@ -71,6 +76,17 @@
                     "What did you want to grab?"
                 ]
             },
+            "drop": {
+                "true": [
+                    "Okay, I dropped %s"
+                ],
+                "false": [
+                    "I can't find %s in your inventory to drop..."
+                ],
+                "missing": [
+                    "What did you want to drop?"
+                ]
+            },
             "help": {
                 "true": null,
                 "false": [
@@ -100,6 +116,17 @@
                     "Doesn't look like you have anything in your inventory.",
                     "Your inventory is remarkably empty.",
                     "I've never seen a cleaner inventory in all of my cycles."
+                ]
+            },
+            "inquire": {
+                "true": null,
+                "false": [
+                    "I don't know anything about %s...",
+                    "Hmm, I don't know enough about %s to tell you anything."
+                ],
+                "missing": [
+                    "What did you want to learn about?",
+                    "What were you asking about?"
                 ]
             }
         }

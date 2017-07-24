@@ -34,19 +34,23 @@
             },
             "objects": [
                 {
-                    "id": "something sharp",
+                    "id": "sharp thing",
                     "alt": [
+                        "sharp object",
                         "sharp thing",
                         "sharp"
                     ],
+                    "location": "lies to the left of the door",
                     "bsay": "It's sharp and metallic, like me."
                 },
                 {
-                    "id": "something dull",
+                    "id": "dull thing",
                     "alt": [
+                        "dull object",
                         "dull thing",
                         "dull"
                     ],
+                    "location": "rests against the wall to the right of the door",
                     "bsay": "It's a short, dull wooden thing. Reminds me of someone..."
                 }
             ],
@@ -125,34 +129,43 @@
             },
             "objects": null,
             "entities": null
-        }
-    },
-    "zone4": {
-        "alias": "Secret Room",
-        "bsay": [
-            "This room appears to have been lived in by someone at one time, there are scribbles on the wall, ravings of a mad man or woman. There is an exit behind us leading back to test room 2."
-        ],
-        "context_help": [
-            "Nothing of use here."
-        ],
-        "actions": null,
-        "exits": {
-            "forward": null,
-            "right": null,
-            "back": {
-                "alt": [
-                    "room 2",
-                    "room to",
-                    "room too",
-                    "test room 2",
-                    "test room to",
-                    "test room too"
-                ],
-                "link": "zone2"
-            },
-            "left": null
         },
-        "objects": null,
-        "entities": null
+        "zone4": {
+            "alias": "Secret Room",
+            "bsay": [
+                "This room appears to have been lived in by someone for quite a while, there are scribbles on the wall, ravings of a mad man or woman. There is an exit behind us leading back to test room 2."
+            ],
+            "context_help": [
+                "Someone is here, why not try talking to them?"
+            ],
+            "actions": null,
+            "exits": {
+                "forward": null,
+                "right": null,
+                "back": {
+                    "alt": [
+                        "room 2",
+                        "room to",
+                        "room too",
+                        "test room 2",
+                        "test room to",
+                        "test room too"
+                    ],
+                    "link": "zone2"
+                },
+                "left": null
+            },
+            "objects": null,
+            "entities": {
+                "deranged man": {
+                    "name": "Test subject 42",
+                    "hp": 100,
+                    "age": 42,
+                    "sex": "M",
+                    "location": " passed out in the corner",
+                    "bsay": "He's covered in rags and unconcious, I think he's been here a while. He keeps muttering something about 'the norm'"
+                }
+            }
+        }
     }
 }

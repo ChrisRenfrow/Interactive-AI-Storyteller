@@ -4,10 +4,28 @@
         "author": "crenfrow"
     },
     "dict": {
+        "42": {
+            "alt": null,
+            "desc": [
+                "Do you honestly expect me to say anything other than 'The meaning to life, the universe, everything'? I didn't think so."
+            ]
+        },
         "bot": {
             "alt": null,
             "desc": [
                 "A robot. Typically built to automate things. In this case, story-telling."
+            ]
+        },
+        "god": {
+            "alt": null,
+            "desc": [
+                "You came to the wrong place for that discussion I'm afraid."
+            ]
+        },
+        "kim": {
+            "alt": null,
+            "desc": [
+                "Put your thumb and forefinger to your chin as if deep in thought. Now repeat after me, 'Yes'. You have just successfully channelled your inner Kim."
             ]
         }
     }
