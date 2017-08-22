@@ -3,7 +3,7 @@
 process.env.DEBUG = 'actions-on-google:*';
 const App = require('actions-on-google').ApiAiApp;
 const functions = require('firebase-functions');
-const XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
+const axios = require('axios');
 const vsprintf = require('sprintf-js').vsprintf;
 
 const story = './stories/test_story';
@@ -379,18 +379,19 @@ exports.interactiveStory = functions.https.onRequest((request, response) => {
    * @param {object} app - The app
    */
   function unknown(app) {
-    console.log('REQUEST OBJ:' + request.toString());
-    // TODO: Make it work T~T
-    // let url = 'http://35.197.35.247/s2s?ask=' +
-    //   encodeURI(request.result.resolvedQuery);
-    // let xmlHttp = new XMLHttpRequest();
-    // xmlHttp.open( 'GET', url, false );
-    // xmlHttp.send( null );
-    // if (xmlHttp.responseText) {
-    //   app.ask(xmlHttp.responseText);
-    // } else {
-      app.ask(getRandomReply(bot.say.small_talk.unknown));
-    // }
+    axios({
+      method: 'get',
+      url: 'http://5.197.35.247/s2s?ask=' + encodeURI(app.getRawInput()),
+      responseType: 'json',
+    })
+    .then(function(response) {
+      // console.log('STATUS:' + response.status + '\nDATA:\n' + response.data);
+      app.ask(response.data);
+    })
+    .catch(function(err) {
+      // console.log(err.message);
+      app.ask(getRandomReply(bot.dialogue.actions.help.false));
+    });
   }
 
   /**
