@@ -381,7 +381,7 @@ exports.interactiveStory = functions.https.onRequest((request, response) => {
   function unknown(app) {
     axios({
       method: 'get',
-      url: 'http://5.197.35.247/s2s?ask=' + encodeURI(app.getRawInput()),
+      url: 'http://35.197.76.78/s2s?ask=' + encodeURI(app.getRawInput()),
       responseType: 'json',
     })
     .then(function(response) {
